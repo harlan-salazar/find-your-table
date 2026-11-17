@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Find Your Table</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="js/data.js" defer></script>
+    <script src="js/app.js" defer></script>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="eyebrow" id="eyebrow"></div>
+      <h1 id="couple"></h1>
+      <div class="date" id="date"></div>
+      <div class="rule"></div>
+
+      <div id="searchView">
+        <p class="prompt">Type your name to find your seat</p>
+        <div class="search">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          >
+            <circle cx="11" cy="11" r="7" />
+            <path d="m20 20-3.5-3.5" />
+          </svg>
+          <input
+            id="q"
+            type="search"
+            placeholder="First or last name"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            aria-label="Your name"
+          />
+        </div>
+        <div class="results" id="results"></div>
+      </div>
+
+      <div id="resultView" hidden></div>
+    </div>
+    <footer id="footer"></footer>
+  </body>
+</html>
