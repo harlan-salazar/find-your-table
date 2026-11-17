@@ -1,11 +1,14 @@
-/* Colors — change these to match your motif */
+/* Colors — sampled from the invitation */
 :root {
-  --bg: #f7f3ee;
-  --ink: #2f2a26;
-  --muted: #8a7f75;
-  --accent: #9c7b5b;
+  --bg: #e9e8e6; /* invitation background grey */
+  --sage: #99a48b; /* invitation panel */
+  --sage-deep: #66745a; /* sage for text on white (readable contrast) */
+  --on-sage: #ffffff;
+  --on-sage-soft: rgba(255, 255, 255, 0.88);
+  --ink: #3b4235;
+  --muted: #7d8574;
   --card: #ffffff;
-  --line: #e6ddd3;
+  --line: #e4e6df;
 }
 * {
   box-sizing: border-box;
@@ -19,91 +22,117 @@ body {
 }
 body {
   font-family: "Jost", system-ui, sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 56px 20px 32px;
+  padding: 48px 16px 28px;
 }
+
+/* Sage panel with the invitation's slanted, rounded shape */
 .wrap {
+  position: relative;
+  isolation: isolate;
   width: 100%;
   max-width: 440px;
   text-align: center;
+  color: var(--on-sage);
+  padding: 72px 24px 80px;
 }
+.wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--sage);
+  border-radius: 28px;
+  transform: skewY(-4.5deg);
+}
+
 .eyebrow {
   font-size: 12px;
-  letter-spacing: 0.32em;
+  letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--on-sage-soft);
 }
 h1 {
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 500;
-  font-size: 44px;
-  line-height: 1.05;
-  margin: 14px 0 6px;
+  font-family: "Sacramento";
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 1.1;
+  margin: 10px 0 8px;
 }
 h1 .amp {
-  font-style: italic;
-  color: var(--accent);
-  font-weight: 400;
+  font-size: 0.8em;
 }
 .date {
-  font-family: "Cormorant Garamond", serif;
-  font-style: italic;
-  font-size: 19px;
-  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 14px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+.date::before,
+.date::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--on-sage-soft);
+}
+.date:empty {
+  display: none;
 }
 .rule {
-  width: 44px;
-  height: 1px;
-  background: var(--accent);
-  margin: 26px auto;
+  height: 28px;
 }
 .prompt {
-  font-size: 16px;
-  color: var(--muted);
-  margin-bottom: 18px;
+  font-family: "Jost";
+  font-size: 20px;
+  line-height: 1.2;
+  margin-bottom: 16px;
 }
+
 .search {
   position: relative;
 }
 .search input {
   width: 100%;
   font: inherit;
-  font-size: 18px;
-  font-weight: 400;
+  font-size: 17px;
   color: var(--ink);
-  padding: 17px 18px 17px 50px;
-  border: 1px solid var(--line);
+  padding: 16px 18px 16px 50px;
+  border: 1px solid transparent;
   border-radius: 999px;
   background: var(--card);
   outline: none;
-  transition:
-    border-color 0.2s,
-    box-shadow 0.2s;
+  transition: box-shadow 0.2s;
   -webkit-appearance: none;
 }
+.search input::placeholder {
+  color: #9aa092;
+}
 .search input:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 4px rgba(156, 123, 91, 0.12);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.35);
 }
 .search svg {
   position: absolute;
   left: 19px;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--muted);
+  color: var(--sage-deep);
 }
+
 .results {
-  margin-top: 18px;
+  margin-top: 16px;
   text-align: left;
 }
 .hint {
   text-align: center;
-  color: var(--muted);
+  color: var(--on-sage-soft);
   font-size: 13px;
+  letter-spacing: 0.08em;
   margin: 4px 0 12px;
 }
 .item {
@@ -112,38 +141,38 @@ h1 .amp {
   justify-content: space-between;
   gap: 12px;
   background: var(--card);
-  border: 1px solid var(--line);
+  border: 1px solid transparent;
   border-radius: 14px;
-  padding: 15px 18px;
-  margin-bottom: 10px;
+  padding: 14px 18px;
+  margin-bottom: 8px;
   cursor: pointer;
   width: 100%;
   font: inherit;
-  color: inherit;
+  color: var(--ink);
   text-align: left;
   transition:
     border-color 0.2s,
     transform 0.1s;
 }
 .item:hover {
-  border-color: var(--accent);
+  border-color: var(--sage-deep);
 }
 .item:active {
   transform: scale(0.99);
 }
 .item .name {
-  font-size: 17px;
-  font-weight: 400;
+  font-size: 16px;
 }
 .item .tbl {
-  font-family: "Cormorant Garamond", serif;
-  font-size: 19px;
-  color: var(--accent);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--sage-deep);
   white-space: nowrap;
 }
 .item .tbl.tbd {
-  font-family: "Jost", sans-serif;
-  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: none;
   color: var(--muted);
 }
 .item mark {
@@ -151,23 +180,24 @@ h1 .amp {
   color: var(--ink);
   font-weight: 500;
   text-decoration: underline;
-  text-decoration-color: var(--accent);
+  text-decoration-color: var(--sage);
   text-underline-offset: 3px;
 }
 .empty {
   text-align: center;
-  color: var(--muted);
+  color: var(--on-sage);
   font-size: 15px;
-  padding: 18px 8px;
+  padding: 16px 8px;
   line-height: 1.6;
 }
+
+/* Seat card */
 .card {
   background: var(--card);
-  border: 1px solid var(--line);
+  color: var(--ink);
   border-radius: 20px;
-  padding: 34px 24px 28px;
+  padding: 30px 22px 26px;
   text-align: center;
-  margin-top: 6px;
   animation: rise 0.35s ease;
 }
 @keyframes rise {
@@ -181,15 +211,16 @@ h1 .amp {
   }
 }
 .card .hi {
-  font-size: 15px;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
   color: var(--muted);
 }
 .card .guest {
-  font-family: "Cormorant Garamond", serif;
-  font-size: 30px;
-  font-weight: 500;
-  margin: 4px 0 20px;
-  line-height: 1.15;
+  font-family: "Sacramento", cursive;
+  font-size: 40px;
+  line-height: 1.2;
+  margin: 6px 0 18px;
 }
 .card .label {
   font-size: 11px;
@@ -198,27 +229,25 @@ h1 .amp {
   color: var(--muted);
 }
 .card .num {
-  font-family: "Cormorant Garamond", serif;
   font-size: 104px;
+  font-weight: 300;
   line-height: 1;
-  color: var(--accent);
-  font-weight: 500;
-  margin: 6px 0 4px;
+  color: var(--sage-deep);
+  margin: 8px 0 6px;
 }
 .card .tname {
-  font-family: "Cormorant Garamond", serif;
-  font-style: italic;
-  font-size: 20px;
+  font-size: 13px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
 }
 .card .tbdmsg {
   font-size: 16px;
   line-height: 1.6;
-  color: var(--ink);
-  margin-top: 10px;
+  margin-top: 6px;
 }
 .mates {
-  margin-top: 24px;
-  padding-top: 20px;
+  margin-top: 22px;
+  padding-top: 18px;
   border-top: 1px solid var(--line);
 }
 .mates p {
@@ -226,7 +255,7 @@ h1 .amp {
   letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--muted);
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 .mates ul {
   list-style: none;
@@ -234,22 +263,32 @@ h1 .amp {
   line-height: 1.85;
 }
 .back {
-  margin-top: 22px;
+  margin-top: 18px;
   background: none;
   border: none;
   font: inherit;
-  font-size: 15px;
-  color: var(--accent);
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--on-sage);
   cursor: pointer;
-  letter-spacing: 0.04em;
   padding: 10px;
 }
+
 footer {
   margin-top: auto;
-  padding-top: 48px;
-  font-family: "Cormorant Garamond", serif;
-  font-style: italic;
-  color: var(--muted);
-  font-size: 17px;
+  padding-top: 44px;
+  font-family: "Jost";
+  color: var(--sage-deep);
+  font-size: 20px;
   text-align: center;
+}
+
+@media (max-width: 380px) {
+  h1 {
+    font-size: 54px;
+  }
+  .card .num {
+    font-size: 88px;
+  }
 }
