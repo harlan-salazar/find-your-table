@@ -292,3 +292,24 @@ footer {
     font-size: 88px;
   }
 }
+
+/* View transitions (Search another name) */
+.fade-out {
+  animation: fall 0.22s ease forwards;
+}
+@keyframes fall {
+  to {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+.fade-in {
+  animation: rise 0.35s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .fade-in,
+  .fade-out {
+    animation: none;
+  }
+}

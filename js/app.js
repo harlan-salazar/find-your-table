@@ -146,13 +146,50 @@ ${body}
   $("searchView").hidden = true;
   $("resultView").hidden = false;
   $("back").onclick = () => {
-    $("resultView").hidden = true;
-    $("searchView").hidden = false;
-    $("q").value = "";
-    $("results").innerHTML = "";
-    $("q").focus();
+    window.scrollTo({ top: 0, behavior: reduceMotion.matches ? "auto" : "smooth" });
+    swapViews($("resultView"), $("searchView"), () => {
+      $("q").value = "";
+      $("results").innerHTML = "";
+      $("q").focus({ preventScroll: true });
+    });
   };
   window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+// Fade one view out, glide the panel to the new height, fade the other in
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+function swapViews(from, to, after) {
+  const wrap = document.querySelector(".wrap");
+  let swapped = false;
+  const swap = () => {
+    if (swapped) return;
+    swapped = true;
+    const startH = wrap.offsetHeight;
+    from.hidden = true;
+    from.classList.remove("fade-out");
+    to.hidden = false;
+    after();
+    if (reduceMotion.matches) return;
+
+    to.classList.remove("fade-in");
+    void to.offsetWidth; // restart the animation
+    to.classList.add("fade-in");
+
+    const endH = wrap.offsetHeight;
+    if (startH === endH) return;
+    wrap.style.height = startH + "px";
+    void wrap.offsetHeight;
+    wrap.style.transition = "height 0.4s ease";
+    wrap.style.height = endH + "px";
+    setTimeout(() => {
+      wrap.style.height = "";
+      wrap.style.transition = "";
+    }, 420);
+  };
+  if (reduceMotion.matches) return swap();
+  from.classList.add("fade-out");
+  from.addEventListener("animationend", swap, { once: true });
+  setTimeout(swap, 300); // fallback if animationend never fires
 }
 
 $("q").addEventListener("input", search);
